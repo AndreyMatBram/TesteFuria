@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Cadastro de Fã - FURIA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background-color: #1c1c1c;
+      padding: 30px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 0 10px #00ffae;
+    }
+
+    h2 {
+      text-align: center;
+      color: #00ffae;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+    }
+
+    .checkbox-group input {
+      margin-right: 10px;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #00ffae;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00e19d;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cadastro de Fã</h2>
+    <form action="http://127.0.0.1:5000/fan/add" method="POST" onsubmit="return enviarFormulario(event)">
+      <label for="nome">Nome:</label>
+      <input type="text" id="nome" name="nome" required />
+
+      <label for="idade">Idade:</label>
+      <input type="number" id="idade" name="idade" required />
+
+      <label for="nivel_fa">Nível de Fã:</label>
+      <select id="nivel_fa_id" name="nivel_fa_id" required>
+        <option value="">Selecione...</option>
+        <option value="0">Casual</option>
+        <option value="1">Irritado</option>
+        <option value="2">Raivoso</option>
+        <option value="3">Furioso</option>
+      </select>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="consentimento" name="consentimento" />
+        <label for="consentimento">Autorizo a coleta de dados</label>
+      </div>
+
+      <button type="submit">Cadastrar</button>
+    </form>
+  </div>
+
+  <script>
+    async function enviarFormulario(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById("nome").value;
+      const idade = parseInt(document.getElementById("idade").value);
+      const nivel_fa_id = parseInt(document.getElementById("nivel_fa_id").value);
+      const consentimento = document.getElementById("consentimento").checked;
+
+      const dados = { nome, idade, nivel_fa_id, consentimento };
+
+      const resposta = await fetch("http://127.0.0.1:5000/fan/add", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(dados),
+      });
+
+      const resultado = await resposta.json();
+      alert(resultado.message || "Cadastro realizado!");
+    }
+  </script>
+</body>
+</html>
