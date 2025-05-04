@@ -68,9 +68,33 @@
     button:hover {
       background-color: #00e19d;
     }
+
+    .menu-button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      background-color: #00ffae;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .menu-button:hover {
+      background-color: #00e19d;
+    }
   </style>
 </head>
 <body>
+
+  <header>
+    <a href="../Index.html" class="menu-button">Voltar</a>
+  </header>
+
   <div class="container">
     <h2>Cadastro de Fã</h2>
     <form action="http://127.0.0.1:5000/fan/add" method="POST" onsubmit="return enviarFormulario(event)">

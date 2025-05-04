@@ -90,6 +90,10 @@ Por questões de tempo e escopo, algumas funcionalidades **não foram implementa
 - `README.md`: Este arquivo
 - `requirements.txt`: Dependências do projeto
 
+## 📊 Diagrama de Entidade e Relacionamento DER
+
+![Diagrama de Entidade e Relacionamento](.\ReadMe_Addons\DER.png)
+
 ---
 
 ## 👤 Desenvolvido por

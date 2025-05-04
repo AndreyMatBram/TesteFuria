@@ -264,5 +264,25 @@ def delete_nivel_fa_nome(nome):
     db.session.commit()
     return jsonify({"message": "Nivel de fã deletado com sucesso!"}), 200
 
+@app.route('/fake-twitter/<username>', methods=['GET'])
+def fake_twitter(username):
+    # Dados fictícios simulando uma resposta da API do X
+    from random import randint
+    mock_data = {
+        "username": username,
+        "seguidores": randint(1, 10000),
+        "tweets": [
+            {"texto": "Vamos FURIA!", "data": "2025-05-01"},
+            {"texto": "Assistindo o Major com a camisa da FURIA 🔥", "data": "2025-04-28"},
+            {"texto": "FURIA TOP 1 DO MUNDO!", "data": "2025-04-20"}
+        ],
+        "interacoes_com_furia": True,
+        "seguindo_furia": True,
+        "temas_esports_frequentes": ["Counter-Strike", "FURIA", "Major", "e-sports"]
+    }
+
+    return jsonify(mock_data)
+
+
 if __name__ == '__main__':
     app.run(debug=True)

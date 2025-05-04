@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fake Twitter - FURIA</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      background-color: #1c1c1c;
+      padding: 30px;
+      border-radius: 10px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 0 10px #00ffae;
+    }
+
+    h2 {
+      text-align: center;
+      color: #00ffae;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 10px;
+      background-color: #00ffae;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #00e19d;
+    }
+
+    .resultado {
+      margin-top: 20px;
+    }
+
+    .tweet {
+      background-color: #2a2a2a;
+      padding: 10px;
+      margin-top: 10px;
+      border-radius: 5px;
+    }
+
+    .menu-button {
+      display: block;
+      width: 100%;
+      padding: 15px;
+      margin: 10px 0;
+      background-color: #00ffae;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+      text-decoration: none;
+    }
+
+    .menu-button:hover {
+      background-color: #00e19d;
+    }
+  </style>
+</head>
+<body>
+
+    <header>
+        <a href="../Index.html" class="menu-button">Voltar</a>
+    </header>
+
+  <div class="container">
+    <h2>Consulta Fake Twitter</h2>
+    <input type="text" id="username" placeholder="Digite o @ do usuário" />
+    <button onclick="buscarUsuario()">Buscar</button>
+
+    <div class="resultado" id="resultado"></div>
+  </div>
+
+  <script>
+    function buscarUsuario() {
+      const username = document.getElementById('username').value;
+      const resultadoDiv = document.getElementById('resultado');
+      resultadoDiv.innerHTML = "Carregando...";
+
+      fetch(`http://localhost:5000/fake-twitter/${username}`)
+        .then(res => res.json())
+        .then(data => {
+          resultadoDiv.innerHTML = `
+            <p><strong>Usuário:</strong> ${data.username}</p>
+            <p><strong>Seguidores:</strong> ${data.seguidores}</p>
+            <p><strong>Interações com a FURIA:</strong> ${data.interacoes_com_furia ? 'Sim' : 'Não'}</p>
+            <p><strong>Segue a FURIA:</strong> ${data.seguindo_furia ? 'Sim' : 'Não'}</p>
+            <p><strong>Temas de interesse:</strong> ${data.temas_esports_frequentes.join(', ')}</p>
+            <h4>Tweets Recentes:</h4>
+            ${data.tweets.map(tweet => `
+              <div class="tweet">
+                <p>${tweet.texto}</p>
+                <small>${tweet.data}</small>
+              </div>
+            `).join('')}
+          `;
+        })
+        .catch(err => {
+          resultadoDiv.innerHTML = "<p>Erro ao buscar usuário.</p>";
+          console.error(err);
+        });
+    }
+  </script>
+</body>
+</html>
