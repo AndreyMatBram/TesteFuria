@@ -92,7 +92,7 @@ Por questões de tempo e escopo, algumas funcionalidades **não foram implementa
 
 ## 📊 Diagrama de Entidade e Relacionamento DER
 
-![Diagrama de Entidade e Relacionamento](.\ReadMe_Addons\DER.png)
+![Diagrama de Entidade e Relacionamento](./ReadMe_Addons/DER.png)
 
 ---
 
