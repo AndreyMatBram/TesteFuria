@@ -83,7 +83,7 @@
       <label for="nivel_fa">Nível de Fã:</label>
       <select id="nivel_fa_id" name="nivel_fa_id" required>
         <option value="">Selecione...</option>
-        <option value="0">Casual</option>
+        <option value="0">Calmo</option>
         <option value="1">Irritado</option>
         <option value="2">Raivoso</option>
         <option value="3">Furioso</option>
@@ -116,7 +116,13 @@
       });
 
       const resultado = await resposta.json();
-      alert(resultado.message || "Cadastro realizado!");
+      if (!consentimento) {
+        alert("Você não autorizou a coleta de dados.");
+      } else if (resposta.status !== 200) {
+        alert(resultado.message || "Erro ao cadastrar fã.");
+      } else {
+        alert("Cadastro realizado com sucesso!");
+      }
     }
   </script>
 </body>
